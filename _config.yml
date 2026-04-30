@@ -2,7 +2,7 @@
 title: "Dad · Dev · Devoted"
 description: "Software engineer, girl dad, Chelsea supporter, and man of faith."
 baseurl: ""       # leave blank unless serving from a subdirectory
-url: ""           # replace with your domain e.g. https://yourdomain.com
+url: "https://jeremyramos.co.za"     # replace with your domain e.g. https://yourdomain.com
 
 # Build Settings
 markdown: kramdown
