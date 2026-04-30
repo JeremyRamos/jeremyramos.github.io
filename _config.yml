@@ -1,0 +1,16 @@
+# Site Settings
+title: "Dad · Dev · Devoted"
+description: "Software engineer, girl dad, Chelsea supporter, and man of faith."
+baseurl: ""       # leave blank unless serving from a subdirectory
+url: ""           # replace with your domain e.g. https://yourdomain.com
+
+# Build Settings
+markdown: kramdown
+theme: null       # using a custom theme (index.html)
+
+# Exclude from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - node_modules

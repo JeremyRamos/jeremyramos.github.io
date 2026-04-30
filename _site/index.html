@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dad · Dev · Devotee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:   #034694;   /* Chelsea blue */
+      --gold:   #D4AF37;
+      --white:  #F9F7F2;
+      --ink:    #1A1A2E;
+      --muted:  #6B7280;
+      --grass:  #2D6A4F;
+      --light:  #EEF2FF;
+      --card-bg:#FFFFFF;
+      --radius: 16px;
+      --shadow: 0 4px 24px rgba(3,70,148,.10);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(3,70,148,.15) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 90% 90%, rgba(212,175,55,.12) 0%, transparent 60%),
+        var(--white);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(3,70,148,.04) 39px, rgba(3,70,148,.04) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(3,70,148,.04) 39px, rgba(3,70,148,.04) 40px);
+      pointer-events: none;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--blue);
+      color: #fff;
+      font-family: 'DM Mono', monospace;
+      font-size: .75rem;
+      letter-spacing: .12em;
+      padding: .35rem .9rem;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+      animation: fadeDown .6s ease both;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 8vw, 6rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -.02em;
+      animation: fadeDown .7s .1s ease both;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--blue);
+      position: relative;
+    }
+
+    .hero h1 em::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: 2px; right: 0;
+      height: 4px;
+      background: var(--gold);
+      border-radius: 2px;
+      transform-origin: left;
+      animation: underlineGrow .5s .9s ease both;
+      transform: scaleX(0);
+    }
+
+    @keyframes underlineGrow { to { transform: scaleX(1); } }
+
+    .hero-sub {
+      margin-top: 1.25rem;
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 480px;
+      animation: fadeDown .7s .2s ease both;
+    }
+
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem;
+      justify-content: center;
+      margin-top: 2rem;
+      animation: fadeDown .7s .3s ease both;
+    }
+
+    .pill {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      background: var(--card-bg);
+      border: 1.5px solid rgba(3,70,148,.15);
+      padding: .45rem 1rem;
+      border-radius: 100px;
+      font-size: .88rem;
+      font-weight: 500;
+      color: var(--ink);
+      box-shadow: 0 2px 8px rgba(3,70,148,.06);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .pill:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .pill .icon { font-size: 1.1rem; }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .4rem;
+      color: var(--muted);
+      font-size: .75rem;
+      letter-spacing: .08em;
+      animation: fadeDown .7s .6s ease both, bob 2s 1.5s ease-in-out infinite;
+    }
+    .scroll-hint svg { width: 20px; opacity: .5; }
+
+    @keyframes bob {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTION SHELL ── */
+    section { padding: 6rem 1.5rem; }
+    .container { max-width: 1000px; margin: 0 auto; }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: .75rem;
+      letter-spacing: .14em;
+      color: var(--blue);
+      text-transform: uppercase;
+      margin-bottom: .75rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .section-body {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      max-width: 560px;
+    }
+
+    /* ── ABOUT ── */
+    .about { background: var(--white); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .avatar-frame {
+      width: 260px;
+      height: 260px;
+      border-radius: 40% 60% 55% 45% / 45% 45% 55% 55%;
+      background: linear-gradient(135deg, var(--blue) 0%, #0a5fd8 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      position: relative;
+      margin: 0 auto;
+      box-shadow: 0 24px 60px rgba(3,70,148,.25);
+      animation: morphBlob 8s ease-in-out infinite;
+    }
+
+    @keyframes morphBlob {
+      0%,100% { border-radius: 40% 60% 55% 45% / 45% 45% 55% 55%; }
+      33%      { border-radius: 55% 45% 40% 60% / 60% 55% 45% 40%; }
+      66%      { border-radius: 45% 55% 60% 40% / 50% 60% 40% 50%; }
+    }
+
+    .avatar-badge {
+      position: absolute;
+      bottom: -12px; right: -12px;
+      background: var(--gold);
+      color: var(--ink);
+      font-weight: 700;
+      font-size: .8rem;
+      padding: .4rem .85rem;
+      border-radius: 100px;
+      box-shadow: 0 4px 12px rgba(212,175,55,.4);
+      white-space: nowrap;
+    }
+
+    /* ── PASSION CARDS ── */
+    .passions { background: var(--light); }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 1.75rem 1.5rem;
+      box-shadow: var(--shadow);
+      border: 1.5px solid transparent;
+      transition: transform .25s, border-color .25s, box-shadow .25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      border-radius: 4px 4px 0 0;
+      background: var(--card-accent, var(--blue));
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(3,70,148,.15);
+      border-color: rgba(3,70,148,.1);
+    }
+
+    .card-icon { font-size: 2.2rem; margin-bottom: 1rem; display: block; }
+    .card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: .5rem; }
+    .card p { font-size: .9rem; color: var(--muted); line-height: 1.6; }
+
+    .card.faith   { --card-accent: var(--gold); }
+    .card.chelsea { --card-accent: var(--blue); }
+    .card.family  { --card-accent: #e07b7b; }
+    .card.code    { --card-accent: var(--grass); }
+
+    /* ── VERSE ── */
+    .verse-section {
+      background: linear-gradient(135deg, var(--blue) 0%, #0641a0 100%);
+      color: #fff;
+      text-align: center;
+      padding: 5rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .verse-section::before {
+      content: '\201C';
+      position: absolute;
+      top: -1rem; left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Playfair Display', serif;
+      font-size: 18rem;
+      color: rgba(255,255,255,.05);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .verse-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.3rem, 3vw, 2rem);
+      font-weight: 700;
+      line-height: 1.4;
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .verse-ref {
+      margin-top: 1rem;
+      font-family: 'DM Mono', monospace;
+      font-size: .85rem;
+      letter-spacing: .1em;
+      color: rgba(255,255,255,.65);
+    }
+
+    /* ── SKILLS ── */
+    .skills-section { background: var(--white); }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .65rem;
+      margin-top: 2rem;
+    }
+
+    .skill-tag {
+      background: var(--card-bg);
+      border: 1.5px solid rgba(3,70,148,.15);
+      color: var(--ink);
+      font-family: 'DM Mono', monospace;
+      font-size: .8rem;
+      padding: .4rem .85rem;
+      border-radius: 8px;
+      transition: background .2s, color .2s;
+    }
+
+    .skill-tag:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    .years-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--grass);
+      color: #fff;
+      padding: .5rem 1.1rem;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: .9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: rgba(255,255,255,.5);
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      font-size: .85rem;
+    }
+
+    footer strong { color: rgba(255,255,255,.85); }
+
+    footer .contact-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: .75rem;
+      flex-wrap: wrap;
+    }
+
+    footer .contact-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      font-family: 'DM Mono', monospace;
+      font-size: .75rem;
+      letter-spacing: .08em;
+      color: rgba(255,255,255,.7);
+      text-decoration: none;
+      background: rgba(255,255,255,.08);
+      padding: .35rem .8rem;
+      border-radius: 100px;
+      transition: background .2s, color .2s;
+    }
+
+    footer .contact-links a:hover {
+      background: rgba(255,255,255,.16);
+      color: #fff;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(249,247,242,.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(3,70,148,.08);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    .nav-links { display: flex; gap: 2rem; }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: .9rem;
+      font-weight: 500;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover { color: var(--blue); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 680px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .avatar-frame { width: 200px; height: 200px; font-size: 4rem; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">Home</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#passions">Passions</a>
+      <a href="#skills">Skills</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <span class="badge">Welcome to my corner of the web</span>
+    <h1>Dad. Dev.<br><em>Devoted.</em></h1>
+    <p class="hero-sub">Software engineer by day, girl dad by calling, Chelsea supporter by loyalty, and a man anchored in faith.</p>
+    <div class="hero-pills">
+      <span class="pill">Chelsea FC</span>
+      <span class="pill">Girl Dad</span>
+      <span class="pill">Faith First</span>
+      <span class="pill">10 Years in Tech</span>
+    </div>
+    <div class="scroll-hint">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      SCROLL
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-visual">
+          <div class="avatar-frame">
+            👨‍💻
+            <span class="avatar-badge">10 yrs experience</span>
+          </div>
+        </div>
+        <div>
+          <p class="section-label">// about me</p>
+          <h2 class="section-title">Building things that matter in code and in life.</h2>
+          <p class="section-body">
+            I'm a software engineer with a decade of experience crafting reliable, meaningful products. But the work I'm most proud of? Raising my daughters.
+          </p>
+          <p class="section-body" style="margin-top:1rem;">
+            This little corner of the internet is where my worlds meet a place to share what I build, believe, and love.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VERSE -->
+  <div class="verse-section">
+    <p class="verse-text">"Whatever you do, work at it with all your heart, as working for the Lord, not for human masters."</p>
+    <p class="verse-ref">— Colossians 3:23</p>
+  </div>
+
+  <!-- PASSIONS -->
+  <section class="passions" id="passions">
+    <div class="container">
+      <p class="section-label">// what drives me</p>
+      <h2 class="section-title">More than just a job title.</h2>
+      <div class="cards-grid">
+        <div class="card faith">
+          <h3>Faith</h3>
+          <p>My foundation and compass. Every decision, every morning, every contribution is something bigger than myself.</p>
+        </div>
+        <div class="card family">
+          <h3>Girl Dad</h3>
+          <p>The greatest title I carry. Raising daughters to be brave, kind, and confident is the most meaningful project I'll ever ship.</p>
+        </div>
+        <div class="card chelsea">
+          <h3>Chelsea FC</h3>
+          <p>Blue is the colour. Through the highs and the rebuilds, the loyalty never wavers.</p>
+        </div>
+        <div class="card code">
+          <h3>Software Engineering</h3>
+          <p>A decade of turning ideas into production. I love the architecture, the system design, the crafting, the debugging, the shipping. All of it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="skills-section" id="skills">
+    <div class="container">
+      <p class="section-label">// what i work with</p>
+      <h2 class="section-title">The tech toolkit.</h2>
+      <div class="years-badge">10 years in the industry</div>
+      <p class="section-body">A decade means opinions. I know what I like, what scales, and what not to use on a Friday afternoon.</p>
+      <div class="skills-list">
+        <span class="skill-tag">Ruby</span>
+        <span class="skill-tag">Javascript</span>
+        <span class="skill-tag">PostgreSQL</span>
+        <span class="skill-tag">System Design</span>
+        <span class="skill-tag">System Thinking</span>
+        <span class="skill-tag">Software Architecture</span>
+        <span class="skill-tag">Docker</span>
+        <span class="skill-tag">AWS</span>
+        <span class="skill-tag">CI/CD</span>
+        <span class="skill-tag">REST APIs</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p><strong>Dad · Dev · Devoted</strong></p>
+    <div class="contact-links">
+      <a href="https://linkedin.com/in/jeremy-ramos" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.554v-5.569c0-1.328-.025-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.354V9h3.414v1.561h.046c.476-.9 1.637-1.85 3.37-1.85 3.602 0 4.267 2.37 4.267 5.455v6.284zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/JeremyRamos" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        GitHub
+      </a>
+      <a href="mailto:jeremyramos@gmail.com">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+        Email
+      </a>
+    </div>
+  </footer>
+
+</body>
+</html>
